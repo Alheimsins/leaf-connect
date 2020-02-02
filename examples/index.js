@@ -11,9 +11,9 @@
         pollingInterval: 30000 // in seconds
       */
     })
-    // console.log(await client.sessionInfo())
+    // console.log(client.sessionInfo())
     console.log(await client.cachedStatus())
-    // console.log(await client.status())
+    console.log(await client.status())
     // console.log(await client.climateControlStatus())
     // console.log(await client.climateControlTurnOn())
     // console.log(await client.climateControlTurnOff())

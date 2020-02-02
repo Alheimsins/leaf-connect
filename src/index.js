@@ -1,7 +1,7 @@
 const axios = require('axios')
 const { stringify } = require('querystring')
 const encryptPassword = require('./lib/encrypt-password')
-const extractData = require('./lib/extract-data-from-login-response')
+const extractData = require('./lib/extract-data')
 const retryUntilSuccess = require('./lib/retry-until-success')
 const logger = require('./lib/logger')
 
@@ -27,7 +27,7 @@ module.exports = async ({
   }
 
   if (!REGION_CODES.includes(regionCode)) {
-    throw Error(`"${regionCode}" is an unsupported regionCode.\nSupported region codes is: REGION_CODES.join(', ')`)
+    throw Error(`"${regionCode}" is an unsupported regionCode.\nSupported region codes is: ${REGION_CODES.join(', ')}`)
   }
 
   const log = logger(debug)

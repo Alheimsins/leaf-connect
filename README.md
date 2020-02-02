@@ -89,6 +89,7 @@ await client.location()
 
 | Region | Code |
 |--------|------|
+| Europe | NE   |
 | Canada | NCI  |
 | USA    | NNA  |
 | Australia | NMA |
