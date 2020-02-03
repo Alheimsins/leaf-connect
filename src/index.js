@@ -72,35 +72,31 @@ module.exports = async ({
     throw Error(`Cloud not connect to ${API_ENDPOINT}:\n ${error.message}`)
   }
 
+  const { data } = await apiInstance({
+    url: 'UserLoginRequest.php',
+    data: {
+      initial_app_str: INITIAL_APP_STR,
+      RegionCode: regionCode,
+      lg: locale,
+      UserId: username,
+      Password: encryptPassword(password, sessionState.baseprm)
+    }
+  })
+
+  if (data.status !== 200) {
+    throw Error(`Could not login - status: ${data.status} - message: ${data.message}`)
+  }
+
   try {
-    const { data } = await apiInstance({
-      url: 'UserLoginRequest.php',
-      data: {
-        initial_app_str: INITIAL_APP_STR,
-        RegionCode: regionCode,
-        lg: locale,
-        UserId: username,
-        Password: encryptPassword(password, sessionState.baseprm)
-      }
-    })
-
-    if (data.status !== 200) {
-      throw Error(`Could not login - status: ${data.status} - message: ${data.message}`)
-    }
-
-    try {
-      sessionState.requestOptions = extractData(data)
-    } catch (error) {
-      throw Error(`Could not extract session data:\n${JSON.stringify(data, null, 2)}`)
-    }
-
-    sessionState = {
-      ...sessionState,
-      loggedIn: true,
-      info: data
-    }
+    sessionState.requestOptions = extractData(data)
   } catch (error) {
-    throw Error(`Could not login - ${error.message}`)
+    throw Error(`Could not extract session data:\n${JSON.stringify(data, null, 2)}`)
+  }
+
+  sessionState = {
+    ...sessionState,
+    loggedIn: true,
+    info: data
   }
 
   return {
