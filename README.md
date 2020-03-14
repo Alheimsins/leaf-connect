@@ -1,6 +1,6 @@
 # leaf-connect
 
-[WIP] Node.js client library for the Nissan Leaf API
+Node.js client library for the Nissan Leaf API
 
 ## Requirements
 
