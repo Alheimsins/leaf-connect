@@ -1,11 +1,11 @@
 const axios = require('axios')
-const { stringify } = require('querystring')
+const {stringify} = require('querystring')
 const encryptPassword = require('./lib/encrypt-password')
 const extractData = require('./lib/extract-data')
 const retryUntilSuccess = require('./lib/retry-until-success')
 const logger = require('./lib/logger')
 
-const API_ENDPOINT = 'https://gdcportalgw.its-mo.com/api_v190426_NE/gdc/'
+const API_ENDPOINT = 'https://gdcportalgw.its-mo.com/api_v210707_NE/gdc/'
 const INITIAL_APP_STR = '9s5rfKVuMrT03RtzajWNcA'
 const RESULT_POLLING_INTERVAL = 20000
 const REGION_CODES = ['NE', 'NCI', 'NNA', 'NMA', 'NML']
@@ -56,7 +56,7 @@ module.exports = async ({
   }
 
   try {
-    const { data } = await apiInstance(
+    const {data} = await apiInstance(
       {
         url: 'InitialApp_v2.php',
         data: {
@@ -72,7 +72,7 @@ module.exports = async ({
     throw Error(`Cloud not connect to ${API_ENDPOINT}:\n ${error.message}`)
   }
 
-  const { data } = await apiInstance({
+  const {data} = await apiInstance({
     url: 'UserLoginRequest.php',
     data: {
       initial_app_str: INITIAL_APP_STR,
@@ -104,11 +104,11 @@ module.exports = async ({
     sessionInfo: () => JSON.stringify(sessionState.info, null, 2),
 
     status: async () => {
-      const { data } = await apiInstance({ url: 'BatteryStatusCheckRequest.php', data: sessionState.requestOptions })
-      const { resultKey } = data
+      const {data} = await apiInstance({url: 'BatteryStatusCheckRequest.php', data: sessionState.requestOptions})
+      const {resultKey} = data
 
       const runStatusResult = async () => {
-        const { data } = await apiInstance({
+        const {data} = await apiInstance({
           url: 'BatteryStatusCheckResultRequest.php',
           data: {
             ...sessionState.requestOptions,
@@ -123,23 +123,23 @@ module.exports = async ({
     },
 
     cachedStatus: async () => {
-      const { data } = await apiInstance({ url: 'BatteryStatusRecordsRequest.php', data: sessionState.requestOptions })
+      const {data} = await apiInstance({url: 'BatteryStatusRecordsRequest.php', data: sessionState.requestOptions})
 
       return JSON.stringify(data, null, 2)
     },
 
     climateControlStatus: async () => {
-      const { data } = await apiInstance({ url: 'RemoteACRecordsRequest.php', data: sessionState.requestOptions })
+      const {data} = await apiInstance({url: 'RemoteACRecordsRequest.php', data: sessionState.requestOptions})
 
       return JSON.stringify(data, null, 2)
     },
 
     climateControlTurnOn: async () => {
-      const { data } = await apiInstance({ url: 'ACRemoteRequest.php', data: sessionState.requestOptions })
-      const { resultKey } = data
+      const {data} = await apiInstance({url: 'ACRemoteRequest.php', data: sessionState.requestOptions})
+      const {resultKey} = data
 
       const runClimateControlTurnOnResult = async () => {
-        const { data } = await apiInstance({
+        const {data} = await apiInstance({
           url: 'ACRemoteResult.php',
           data: {
             ...sessionState.requestOptions,
@@ -153,11 +153,11 @@ module.exports = async ({
     },
 
     climateControlTurnOff: async () => {
-      const { data } = await apiInstance({ url: 'ACRemoteOffRequest.php', data: sessionState.requestOptions })
-      const { resultKey } = data
+      const {data} = await apiInstance({url: 'ACRemoteOffRequest.php', data: sessionState.requestOptions})
+      const {resultKey} = data
 
       const runClimateControlTurnOffResult = async () => {
-        const { data } = await apiInstance({
+        const {data} = await apiInstance({
           url: 'ACRemoteOffResult.php',
           data: {
             ...sessionState.requestOptions,
@@ -172,13 +172,13 @@ module.exports = async ({
     },
 
     chargingStart: async () => {
-      const { data } = await apiInstance({ url: 'BatteryRemoteChargingRequest.php', data: sessionState.requestOptions })
+      const {data} = await apiInstance({url: 'BatteryRemoteChargingRequest.php', data: sessionState.requestOptions})
 
       return JSON.stringify(data, null, 2)
     },
 
     history: async date => {
-      const { data } = await apiInstance({
+      const {data} = await apiInstance({
         url: 'CarKarteDetailInfoRequest.php',
         data: {
           ...sessionState.requestOptions,
@@ -190,11 +190,11 @@ module.exports = async ({
     },
 
     location: async () => {
-      const { data } = await apiInstance({ url: 'MyCarFinderRequest.php', data: sessionState.requestOptions })
-      const { resultKey } = data
+      const {data} = await apiInstance({url: 'MyCarFinderRequest.php', data: sessionState.requestOptions})
+      const {resultKey} = data
 
       const runLocationResult = async () => {
-        const { data } = await apiInstance({
+        const {data} = await apiInstance({
           url: 'MyCarFinderResultRequest.php',
           data: {
             ...sessionState.requestOptions,
@@ -209,7 +209,7 @@ module.exports = async ({
     },
 
     lastLocation: async () => {
-      const { data } = await apiInstance({ url: 'MyCarFinderLatLng.php', data: sessionState.requestOptions })
+      const {data} = await apiInstance({url: 'MyCarFinderLatLng.php', data: sessionState.requestOptions})
 
       return JSON.stringify(data, null, 2)
     }
