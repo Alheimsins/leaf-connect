@@ -6,7 +6,7 @@ module.exports = async (interval, fn) => {
   return new Promise((resolve, reject) => {
     const retry = async fn => {
       if (startTime > startTime + maxWaitTime) {
-        reject(new Error('Timout threshold exceeded.'));
+        reject(Error('Timout threshold exceeded.'));
         return;
       }
 
@@ -17,14 +17,14 @@ module.exports = async (interval, fn) => {
 
         if (!data.responseFlag) {
           console.log(data)
-          reject(new Error('Response did not include response flag'))
+          reject(Error('Response did not include response flag'))
         } else if (data.responseFlag === '0') {
           setTimeout(() => retry(fn), interval)
         } else {
           resolve(JSON.stringify(data, null, 2))
         }
       } catch (error) {
-        reject(new Error(`Failed to get status ${error.message}`))
+        reject(Error(`Failed to get status ${error.message}`))
       }
     }
 
