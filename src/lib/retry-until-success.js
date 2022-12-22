@@ -3,7 +3,7 @@ const maxWaitTime = 30000
 module.exports = async (interval, fn) => {
   const startTime = Date.now()
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     const retry = async fn => {
       if (startTime > startTime + maxWaitTime) {
         throw Error('Timout threshold exceeded.')
@@ -16,7 +16,7 @@ module.exports = async (interval, fn) => {
 
         if (!data.responseFlag) {
           console.log(data)
-          throw Error('Response did not include response flag')
+          reject(new Error('Response did not include response flag'))
         }
 
         if (data.responseFlag === '0') {
@@ -25,7 +25,7 @@ module.exports = async (interval, fn) => {
           resolve(JSON.stringify(data, null, 2))
         }
       } catch (error) {
-        throw Error(`Failed to get status ${error.message}`)
+        reject(new Error(`Failed to get status ${error.message}`))
       }
     }
 
