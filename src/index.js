@@ -101,7 +101,7 @@ module.exports = async ({
 
   return {
 
-    sessionInfo: () => JSON.stringify(sessionState.info, null, 2),
+    sessionInfo: () => sessionState.info,
 
     status: async () => {
       const {data} = await apiInstance({url: 'BatteryStatusCheckRequest.php', data: sessionState.requestOptions})
@@ -125,13 +125,13 @@ module.exports = async ({
     cachedStatus: async () => {
       const {data} = await apiInstance({url: 'BatteryStatusRecordsRequest.php', data: sessionState.requestOptions})
 
-      return JSON.stringify(data, null, 2)
+      return data
     },
 
     climateControlStatus: async () => {
       const {data} = await apiInstance({url: 'RemoteACRecordsRequest.php', data: sessionState.requestOptions})
 
-      return JSON.stringify(data, null, 2)
+      return data
     },
 
     climateControlTurnOn: async () => {
@@ -174,7 +174,7 @@ module.exports = async ({
     chargingStart: async () => {
       const {data} = await apiInstance({url: 'BatteryRemoteChargingRequest.php', data: sessionState.requestOptions})
 
-      return JSON.stringify(data, null, 2)
+      return data
     },
 
     history: async date => {
@@ -186,7 +186,7 @@ module.exports = async ({
         }
       })
 
-      return JSON.stringify(data, null, 2)
+      return data
     },
 
     location: async () => {
@@ -211,7 +211,7 @@ module.exports = async ({
     lastLocation: async () => {
       const {data} = await apiInstance({url: 'MyCarFinderLatLng.php', data: sessionState.requestOptions})
 
-      return JSON.stringify(data, null, 2)
+      return data
     }
 
   }

@@ -6,8 +6,8 @@ module.exports = async (interval, fn) => {
   return new Promise((resolve, reject) => {
     const retry = async fn => {
       if (startTime > startTime + maxWaitTime) {
-        reject(Error('Timout threshold exceeded.'));
-        return;
+        reject(Error('Timout threshold exceeded.'))
+        return
       }
 
       let data = {}
