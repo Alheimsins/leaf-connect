@@ -36,6 +36,9 @@ module.exports = async ({
     baseURL: API_ENDPOINT,
     method: 'post',
     transformRequest: [data => stringify(data)],
+    headers: {
+      'User-Agent': ''
+    }
   })
 
   apiInstance.interceptors.request.use(config => {
