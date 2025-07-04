@@ -5,8 +5,12 @@ const extractData = require('./lib/extract-data')
 const retryUntilSuccess = require('./lib/retry-until-success')
 const logger = require('./lib/logger')
 
-const API_ENDPOINT = 'https://gdcportalgw.its-mo.com/api_v230317_NE/gdc'
+const API_ENDPOINT = 'https://gdcportalgw.its-mo.com/api_v250205_NE/gdc'
+
 const INITIAL_APP_STR = '9s5rfKVuMrT03RtzajWNcA'
+const IV = "xaX4ui2PLnwqcc74";
+const PS = "H9YsaE6mr3jBEsAaLC4EJRjn9VXEtTzV";
+
 const RESULT_POLLING_INTERVAL = 20000
 const REGION_CODES = ['NE', 'NCI', 'NNA', 'NMA', 'NML']
 
@@ -82,7 +86,7 @@ module.exports = async ({
       RegionCode: regionCode,
       lg: locale,
       UserId: username,
-      Password: encryptPassword(password, sessionState.baseprm)
+      Password: encryptPassword(password, PS, IV)
     }
   })
 
